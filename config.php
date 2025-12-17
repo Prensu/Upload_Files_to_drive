@@ -1,14 +1,17 @@
 <?php
 
-define('DB_HOST','localhost');
-define('DB_USERNAME','root');
-define('DB_PASSWORD','root');
-define('DB_NAME','codexworld');
+define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1:3307');
+define('DB_USERNAME', getenv('DB_USERNAME') ?: 'root');
+define('DB_PASSWORD', getenv('DB_PASSWORD') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'codexworld');
+define('DB_PORT', 3307);
+
 
 define('GOOGLE_CLIENT_ID','1043224436210-6jc9jbd8ptnqrnjp5l0t8bkej8vike3q.apps.googleusercontent.com');
 define('GOOGLE_CLIENT_SECRET','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6');
 define('GOOGLE_OAUTH_SCOPE','https://www.googleapis.com/auth/drive');
-define('REDIRECT_URI','http://localhost/google_drive_file_upload_php/google_drive_sync.php');
+define('REDIRECT_URI', 'http://localhost/google_drive_file_upload_php/google_drive_sync.php');
+
 
 
 // Start session
@@ -18,6 +21,5 @@ if(!session_id()) session_start();
 $googleOauthURL = 'https://accounts.google.com/o/oauth2/auth?scope=' . urlencode(GOOGLE_OAUTH_SCOPE) .
     '&redirect_uri=' . REDIRECT_URI .
     '&response_type=code&client_id=' . GOOGLE_CLIENT_ID .
-    '&access_type=online';
-
-
+    '&access_type=offline'.
+    '&prompt=consent';
